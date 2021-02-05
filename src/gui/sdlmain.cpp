@@ -11545,6 +11545,9 @@ int main(int argc, char* argv[]) SDL_MAIN_NOEXCEPT {
             if (exepath.size()) {
                 control->ParseConfigFile((exepath + "dosbox-x.conf").c_str());
                 if (!control->configfiles.size()) control->ParseConfigFile((exepath + "dosbox.conf").c_str());
+                /* if the config file is found relative to the executable, change the working dir
+                   so that all paths in autoexec scripts and such will be relative to the executable */
+                if (control->configfiles.size()) chdir(exepath.c_str());
             }
         }
 
